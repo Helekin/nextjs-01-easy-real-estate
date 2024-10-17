@@ -9,8 +9,10 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "bcrypt": "^5.1.1",
     "mongoose": "^8.7.1",
     "next": "^14.2.14",
+    "next-auth": "^4.24.8",
     "nextjs-01-easy-real-estate": "file:",
     "react": "^18",
     "react-dom": "^18",
