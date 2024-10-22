@@ -18,12 +18,16 @@ const LoginForm = () => {
       redirect: false,
       email: email,
       password: password,
-      callbackUrl: `${window.location.origin}`,
+      callbackUrl: "/",
     });
 
     if (result.error) {
       throw new Error(result.error);
     }
+  };
+
+  const handleGoogleSubmit = async () => {
+    await signIn("google", { callbackUrl: "/" });
   };
 
   const override = {
@@ -85,12 +89,22 @@ const LoginForm = () => {
           Log In
         </button>
       </div>
+
       <p className="text-center text-gray-600 mt-4">
         Don't have an account?{" "}
         <Link href="/auth/register" className="text-blue-500 hover:underline">
           Sign up.
         </Link>
       </p>
+
+      <div className="mt-6">
+        <button
+          onClick={handleGoogleSubmit}
+          className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-full w-full focus:outline-none focus:shadow-outline"
+        >
+          Sign in with Google
+        </button>
+      </div>
     </form>
   );
 };
