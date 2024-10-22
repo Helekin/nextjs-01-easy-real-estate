@@ -10,27 +10,29 @@ export const authOptions = {
     CredentialsProvider({
       name: "Credentials",
       credentials: {
-        email: { label: "Email", type: "text", placeholder: "Email" },
-        username: { label: "Username", type: "text", placeholder: "Username" },
+        email: { label: "Email", type: "text" },
         password: {
           label: "Password",
           type: "password",
-          placeholder: "Password",
         },
       },
-      async authorize(credentials, req) {
+      async authorize(credentials) {
         await connectDB();
 
         const userExists = await User.findOne({ email: credentials.email });
 
-        if (!userExists) return null;
+        if (!userExists) {
+          throw new Error("No user found with the entered email");
+        }
 
-        const matchPassword = await bcrypt.matchPassword(
+        const matchPassword = await bcrypt.compare(
           credentials.password,
           userExists.password
         );
 
-        if (!matchPassword) return null;
+        if (!matchPassword) {
+          throw new Error("Password is incorrect");
+        }
 
         return {
           id: userExists.id,

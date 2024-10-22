@@ -1,11 +1,50 @@
+"use client";
+
+import { useState } from "react";
 import Link from "next/link";
+import { signIn, useSession } from "next-auth/react";
+
+import ClipLoader from "react-spinners/ClipLoader";
 
 const LoginForm = () => {
+  const { status } = useSession();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const result = await signIn("credentials", {
+      redirect: false,
+      email: email,
+      password: password,
+      callbackUrl: `${window.location.origin}`,
+    });
+
+    if (result.error) {
+      throw new Error(result.error);
+    }
+  };
+
+  const override = {
+    display: "block",
+    margin: "100px auto",
+  };
+
+  if (status === "loading") {
+    return (
+      <ClipLoader
+        color="#3b82f6"
+        cssOverride={override}
+        size={150}
+        aria-label="Loading Spinner"
+      />
+    );
+  }
+
   return (
-    <form>
-      <h2 className="text-3xl text-center font-semibold mb-6">
-        Log In
-      </h2>
+    <form onSubmit={handleSubmit}>
+      <h2 className="text-3xl text-center font-semibold mb-6">Log In</h2>
       <div className="mb-4">
         <label htmlFor="email" className="block text-gray-700 font-bold mb-2">
           Email
@@ -16,6 +55,7 @@ const LoginForm = () => {
           name="email"
           className="border rounded w-full py-2 px-3 mb-2"
           placeholder="Email"
+          onChange={(e) => setEmail(e.target.value)}
           required
         />
       </div>
@@ -32,6 +72,7 @@ const LoginForm = () => {
           name="password"
           className="border rounded w-full py-2 px-3 mb-2"
           placeholder="Password"
+          onChange={(e) => setPassword(e.target.value)}
           required
         />
       </div>

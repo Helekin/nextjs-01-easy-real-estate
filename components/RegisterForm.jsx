@@ -1,6 +1,11 @@
+"use client"
+import Link from "next/link";
+
+import addUser from "@/app/actions/addUser"
+
 const RegisterForm = () => {
   return (
-    <form>
+    <form action={addUser}>
       <h2 className="text-3xl text-center font-semibold mb-6">
         Create an account
       </h2>
@@ -19,7 +24,23 @@ const RegisterForm = () => {
       </div>
       <div className="mb-4">
         <label
-          htmlFor="description"
+          htmlFor="username"
+          className="block text-gray-700 font-bold mb-2"
+        >
+          Username
+        </label>
+        <input
+          type="text"
+          id="username"
+          name="username"
+          className="border rounded w-full py-2 px-3 mb-2"
+          placeholder="Username"
+          required
+        />
+      </div>
+      <div className="mb-4">
+        <label
+          htmlFor="password"
           className="block text-gray-700 font-bold mb-2"
         >
           Password
@@ -30,6 +51,22 @@ const RegisterForm = () => {
           name="password"
           className="border rounded w-full py-2 px-3 mb-2"
           placeholder="Password"
+          required
+        />
+      </div>
+      <div className="mb-4">
+        <label
+          htmlFor="confirmPassword"
+          className="block text-gray-700 font-bold mb-2"
+        >
+          Confirm Password
+        </label>
+        <input
+          type="password"
+          id="confirmPassword"
+          name="confirmPassword"
+          className="border rounded w-full py-2 px-3 mb-2"
+          placeholder="Confirm Password"
           required
         />
       </div>
@@ -44,7 +81,7 @@ const RegisterForm = () => {
       </div>
       <p className="text-center text-gray-600 mt-4">
         Already have an account?{" "}
-        <Link href="/auth/register" className="text-blue-500 hover:underline">
+        <Link href="/auth/login" className="text-blue-500 hover:underline">
           Log in.
         </Link>
       </p>
