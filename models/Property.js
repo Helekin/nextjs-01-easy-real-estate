@@ -48,7 +48,7 @@ const PropertySchema = new Schema(
     },
     seller_info: {
       name: String,
-      emai: String,
+      email: String,
       phone: String,
     },
     images: [
