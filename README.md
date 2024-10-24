@@ -5,8 +5,6 @@ This project is a comprehensive exercise corresponding to Brad Traversy's Udemy 
 - [Udemy Instructor](https://www.udemy.com/user/brad-traversy/)
 - [Udemy Course](https://www.udemy.com/course/nextjs-from-scratch/)
 
-This iteration might feature alterations compared to the initial course code, including modifications in file names, functions, or variables.
-
 ## Getting Started
 
 ### Prerequisites
@@ -32,6 +30,10 @@ NEXTAUTH_URL_INTERNAL="http://localhost:3000"
 NEXTAUTH_SECRET="your_next_auth_secret"
 GOOGLE_CLIENT_ID="your_google_client_id"
 GOOGLE_CLIENT_SECRET="your_google_client_secret"
+AWS_S3_ACCESS_KEY="your_aws_s3_access_key"
+AWS_S3_SECRET_ACCESS_KEY="your_aws_s3_secret_access_key"
+AWS_S3_BUCKET="your_aws_s3_bucket"
+AWS_S3_REGION="your_aws_region"
 ```
 
 3. Install dependencies
@@ -45,6 +47,29 @@ npm install
 ```sh
 npm run dev
 ```
+
+## Bug Fixes, corrections and code FAQ
+
+This project might feature alterations compared to the initial course code, including modifications in file names, functions, or variables.
+
+### Project Restructuring
+
+The code has undergone important changes as it now uses different tools compared to the original project. In this version, the login and signup process has been enhanced by adding credentials authentication using `NextAuth`, allowing two ways to create users. Additionally, the use of `Cloudinary` has been replaced with `AWS S3` for storing images, due to AWS being more widely known and preferred by the creator of this repository.
+
+The changes can be viewed at:
+
+> Using credentials
+>
+> - [app/auth/login/page.jsx](https://github.com/Helekin/nextjs-01-easy-real-estate/tree/main/app/auth/login/page.jsx)
+> - [app/auth/register/page.jsx](https://github.com/Helekin/nextjs-01-easy-real-estate/tree/main/app/auth/register/page.jsx)
+> - [app/actions/addUser.js](https://github.com/Helekin/nextjs-01-easy-real-estate/tree/main/app/actions/addUser.js)
+> - [utils/authOptions.js](https://github.com/Helekin/nextjs-01-easy-real-estate/tree/main/utils/authOptions.js)
+>
+> AWS S3
+>
+> - [app/actions/addProperty.js](https://github.com/Helekin/nextjs-01-easy-real-estate/tree/main/app/actions/addProperty.js)
+
+Another noteworthy change is that the `User` document created for MongoDB now includes a password field, but it is only used for users who register via credentials.
 
 ## License
 
