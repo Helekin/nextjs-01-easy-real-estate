@@ -4,7 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { signIn, useSession } from "next-auth/react";
 
-import ClipLoader from "react-spinners/ClipLoader";
+import Spinner from "./Spinner";
 
 const LoginForm = () => {
   const { status } = useSession();
@@ -30,20 +30,8 @@ const LoginForm = () => {
     await signIn("google", { callbackUrl: "/" });
   };
 
-  const override = {
-    display: "block",
-    margin: "100px auto",
-  };
-
   if (status === "loading") {
-    return (
-      <ClipLoader
-        color="#3b82f6"
-        cssOverride={override}
-        size={150}
-        aria-label="Loading Spinner"
-      />
-    );
+    return <Spinner />;
   }
 
   return (
