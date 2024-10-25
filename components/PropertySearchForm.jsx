@@ -9,7 +9,7 @@ const PropertySearchForm = () => {
 
   const router = useRouter();
 
-  const handleSubmit = () => {
+  const handleSubmit = (e) => {
     e.preventDefault();
 
     if (location === "" && propertyType === "All") {
