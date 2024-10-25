@@ -16,6 +16,35 @@ async function bookmarkProperty(propertyId) {
   if (!sessionUser || !sessionUser.userId) {
     throw new Error("User ID is required");
   }
+
+  const { userId } = sessionUser;
+
+  const user = await User.findById(userId);
+
+  let isBookmarked = user.bookmarks.includes(propertyId);
+
+  let message;
+
+  if (isBookmarked) {
+    // If already bookmarked, then remove
+    user.bookmarks.pull(propertyId);
+    message = "Bookmark removed successfully";
+    isBookmarked = false;
+  } else {
+    // If not bookmarked, then add
+    user.bookmarks.push(propertyId);
+    message = "Bookmark added successfully";
+    isBookmarked = true;
+  }
+
+  await user.save();
+
+  revalidatePath("/properties/saved", "page");
+
+  return {
+    message,
+    isBookmarked,
+  };
 }
 
 export default bookmarkProperty;
