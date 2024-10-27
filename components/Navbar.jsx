@@ -1,10 +1,12 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 import { signOut, useSession } from "next-auth/react";
+
+import UnreadMessageCount from "./UnreadMessageCount";
 
 import logo from "@/assets/images/logo-white.png";
 import profileDefault from "@/assets/images/profile.png";
@@ -19,6 +21,13 @@ const Navbar = () => {
 
   const pathname = usePathname();
 
+  useEffect(() => {
+    // NOTE: close mobile menu if the viewport size is changed
+    window.addEventListener("resize", () => {
+      setIsMobileMenuOpen(false);
+    });
+  }, []);
+
   return (
     <nav className="bg-blue-700 border-b border-blue-500">
       <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
@@ -31,7 +40,7 @@ const Navbar = () => {
               className="relative inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
               aria-controls="mobile-menu"
               aria-expanded="false"
-              onClick={() => setIsMobileMenuOpen((prev) => !prev)}
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             >
               <span className="absolute -inset-0.5"></span>
               <span className="sr-only">Open main menu</span>
@@ -133,10 +142,7 @@ const Navbar = () => {
                     />
                   </svg>
                 </button>
-                <span className="absolute top-0 right-0 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-white transform translate-x-1/2 -translate-y-1/2 bg-red-600 rounded-full">
-                  2
-                  {/* <!-- Replace with the actual number of notifications --> */}
-                </span>
+                <UnreadMessageCount />
               </Link>
               {/* <!-- Profile dropdown button --> */}
               <div className="relative ml-3">

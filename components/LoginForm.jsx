@@ -1,13 +1,16 @@
 "use client";
 
 import { useState } from "react";
+import { useFormStatus } from "react-dom";
 import Link from "next/link";
 import { signIn, useSession } from "next-auth/react";
 
 import Spinner from "./Spinner";
+import { toast } from "react-toastify";
 
 const LoginForm = () => {
   const { status } = useSession();
+  const { pending } = useFormStatus();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -22,7 +25,7 @@ const LoginForm = () => {
     });
 
     if (result.error) {
-      throw new Error(result.error);
+      toast.error(result.error);
     }
   };
 
@@ -73,8 +76,9 @@ const LoginForm = () => {
         <button
           className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-full w-full focus:outline-none focus:shadow-outline"
           type="submit"
+          disabled={pending}
         >
-          Log In
+          {pending ? "Loading..." : "Log In"}
         </button>
       </div>
 

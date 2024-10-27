@@ -34,6 +34,7 @@ AWS_S3_ACCESS_KEY="your_aws_s3_access_key"
 AWS_S3_SECRET_ACCESS_KEY="your_aws_s3_secret_access_key"
 AWS_S3_BUCKET="your_aws_s3_bucket"
 AWS_S3_REGION="your_aws_region"
+NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN="your_mapbox_access_token"
 ```
 
 3. Install dependencies
@@ -54,7 +55,7 @@ This project might feature alterations compared to the initial course code, incl
 
 ### Project Restructuring
 
-The code has undergone important changes as it now uses different tools compared to the original project. In this version, the login and signup process has been enhanced by adding credentials authentication using `NextAuth`, allowing two ways to create users. Additionally, the use of `Cloudinary` has been replaced with `AWS S3` for storing images, due to AWS being more widely known and preferred by the creator of this repository.
+The code has undergone important changes as it now uses different tools compared to the original project. In this version, the login and signup process has been enhanced by adding credentials authentication using `NextAuth`, allowing two ways to create users. Additionally, the use of `Cloudinary` has been replaced with `AWS S3` for storing images, due to AWS being more widely known and preferred by the creator of this repository. Furthermore, Mapbox Geocoding has been implemented for location services, avoiding the need to use Google APIs for maps.
 
 The changes can be viewed at:
 
